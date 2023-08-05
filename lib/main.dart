@@ -33,8 +33,8 @@ class WheatherApp extends StatelessWidget {
           
  
             ],
-            child: ConnectionNotifier(
-              child: const MaterialApp(
+            child: const ConnectionNotifier(
+              child: MaterialApp(
                   title: 'Wheather App',
                   debugShowCheckedModeBanner: false,
                   home: WheatherHome()),

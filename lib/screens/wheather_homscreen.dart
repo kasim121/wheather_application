@@ -6,9 +6,11 @@ import 'package:intl/intl.dart';
 
 import 'package:provider/provider.dart';
 
+
 import 'package:wheather_app/provider/wheather_provider.dart';
 
 import '../resource/style_manager.dart';
+import '../widgets/maxmin_widget.dart';
 
 class WheatherHome extends StatefulWidget {
   const WheatherHome({super.key});
@@ -18,8 +20,8 @@ class WheatherHome extends StatefulWidget {
 }
 
 class _WheatherHomeState extends State<WheatherHome> {
-  DateTime nowTime = new DateTime.now();
-  DateFormat formatter = new DateFormat('yyyy-MM-dd');
+  DateTime nowTime =  DateTime.now();
+  DateFormat formatter =  DateFormat('yyyy-MM-dd');
   //  String? latitude;
   //  String? longitude;
 
@@ -30,9 +32,7 @@ class _WheatherHomeState extends State<WheatherHome> {
       setState(() {
         var latitude = position.latitude.toString();
         var longitude = position.longitude.toString();
-        print("latitude ${latitude}");
 
-        print("longitude ${longitude}");
         Provider.of<WheatherProvider>(context, listen: false)
             .getDataFromAPI(latitude, longitude);
       });
@@ -44,17 +44,18 @@ class _WheatherHomeState extends State<WheatherHome> {
     final wheatherDataProvider = Provider.of<WheatherProvider>(context);
     final wheatherModelData = wheatherDataProvider.wheatherModel;
     int sunrise = wheatherModelData!.sys.sunrise;
-    int sunset = wheatherModelData.sys.sunrise;
+    int sunset = wheatherModelData.sys.sunset;
 
     DateTime timeForSunrise =
         DateTime.fromMillisecondsSinceEpoch(sunrise * 1000);
     String formattedForSunrise = DateFormat.jm().format(timeForSunrise);
-    print("Converted time for sunrise: ${formattedForSunrise}");
+    debugPrint("Converted time for sunrise: $formattedForSunrise");
 
     DateTime timeForSunset =
-        DateTime.fromMillisecondsSinceEpoch(sunrise * 1000);
+        DateTime.fromMillisecondsSinceEpoch(sunset * 1000);
     String formattedForSunset = DateFormat.jm().format(timeForSunset);
-    print("Converted time for sunset: ${formattedForSunset}");
+        debugPrint("Converted time for sunrise: $formattedForSunrise");
+("Converted time for sunset: $formattedForSunset");
 
     DateTime nowTime = DateTime.now();
     return Scaffold(
@@ -138,76 +139,7 @@ class _WheatherHomeState extends State<WheatherHome> {
                       color: Colors.black),
                 ),
               ),
-              IntrinsicHeight(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Max",
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        ),
-                        SizedBox(
-                          height: 4.h,
-                        ),
-                        Text(
-                          "${wheatherModelData!.main.tempMax.toString()} º",
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 12.0, bottom: 8),
-                      child: VerticalDivider(
-                        color: Colors.black,
-                        thickness: 1,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Min",
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        ),
-                        SizedBox(
-                          height: 4.h,
-                        ),
-                        Text(
-                          "${wheatherModelData.main.tempMin.toString()} º",
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              MaxMinWidget(wheatherModelData: wheatherModelData),
               SizedBox(
                 height: 15.h,
               ),
@@ -226,11 +158,11 @@ class _WheatherHomeState extends State<WheatherHome> {
               SizedBox(
                 height: 25.h,
               ),
-              Divider(
+              const Divider(
                 thickness: 1.5,
               ),
-              Spacer(),
-              Divider(
+              const Spacer(),
+              const Divider(
                 thickness: 1.5,
               ),
               IntrinsicHeight(
@@ -405,3 +337,4 @@ class _WheatherHomeState extends State<WheatherHome> {
     return await Geolocator.getCurrentPosition();
   }
 }
+
