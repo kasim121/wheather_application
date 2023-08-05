@@ -19,38 +19,49 @@ class WheatherHome extends StatefulWidget {
 class _WheatherHomeState extends State<WheatherHome> {
   DateTime nowTime = new DateTime.now();
   DateFormat formatter = new DateFormat('yyyy-MM-dd');
-  late String latitude;
-  late String longitude;
+  //  String? latitude;
+  //  String? longitude;
 
   @override
   void initState() {
-    //    Geolocator.getCurrentPosition(
-    //     desiredAccuracy: LocationAccuracy.high)
-    //     .then((position) {
-    //   setState(() {
-    //     latitude = position.latitude.toString();
-    //     longitude = position.longitude.toString();
-    //     print("latitude ${latitude}");
-    //             print("longitude ${longitude}");
-    //   });
-    // });
-   ///Provider.of<WheatherProvider>(context, listen: false).getDataFromAPI(latitude,longitude);
-      Provider.of<WheatherProvider>(context, listen: false).getDataFromAPI();
     super.initState();
+    getCurrentLocation().then((position) {
+      setState(() {
+        var latitude = position.latitude.toString();
+        var longitude = position.longitude.toString();
+        print("latitude ${latitude}");
+
+        print("longitude ${longitude}");
+        Provider.of<WheatherProvider>(context, listen: false)
+            .getDataFromAPI(latitude, longitude);
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final wheatherDataProvider = Provider.of<WheatherProvider>(context);
     final wheatherModelData = wheatherDataProvider.wheatherModel;
-    DateTime nowTime =  DateTime.now();
+    int sunrise = wheatherModelData!.sys.sunrise;
+    int sunset = wheatherModelData.sys.sunrise;
+
+    DateTime timeForSunrise =
+        DateTime.fromMillisecondsSinceEpoch(sunrise * 1000);
+    String formattedForSunrise = DateFormat.jm().format(timeForSunrise);
+    print("Converted time for sunrise: ${formattedForSunrise}");
+
+    DateTime timeForSunset =
+        DateTime.fromMillisecondsSinceEpoch(sunrise * 1000);
+    String formattedForSunset = DateFormat.jm().format(timeForSunset);
+    print("Converted time for sunset: ${formattedForSunset}");
+
+    DateTime nowTime = DateTime.now();
     return Scaffold(
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Text(
-       
           DateFormat.yMMMEd().format(nowTime),
           style: fontNormalStyle(),
         ),
@@ -139,41 +150,37 @@ class _WheatherHomeState extends State<WheatherHome> {
               //     ),
               //   ),
               // ),
-          
-                                  Center(
-                                    child: Text(
-                                      wheatherModelData!.name
-                                          .toString()
-                                          .toUpperCase(),
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'Poppins',
-                                        letterSpacing: 2,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 30.sp,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15.h,
-                                  ),
-                                  Center(
-                                    child: Text(
-                                      wheatherModelData.weather[0].description
-                                          .toString()
-                                          .toUpperCase(),
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'Poppins',
-                                        letterSpacing: 2,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 30.sp,
-                                      ),
-                                    ),
-                                  ),
-                              
-                            
-                          
+
+              Center(
+                child: Text(
+                  wheatherModelData!.name.toString().toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Poppins',
+                    letterSpacing: 2,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 30.sp,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              Center(
+                child: Text(
+                  wheatherModelData.weather[0].description
+                      .toString()
+                      .toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Poppins',
+                    letterSpacing: 2,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 30.sp,
+                  ),
+                ),
+              ),
+
               SizedBox(
                 height: 30.h,
               ),
@@ -353,7 +360,7 @@ class _WheatherHomeState extends State<WheatherHome> {
                           height: 4.h,
                         ),
                         Text(
-                          "${wheatherModelData.main.tempMin.toString()} PM",
+                         formattedForSunset.toString(),
                           style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 16.sp,
@@ -391,7 +398,7 @@ class _WheatherHomeState extends State<WheatherHome> {
                           height: 4.h,
                         ),
                         Text(
-                          "${wheatherModelData.main.tempMin.toString()} PM",
+                        formattedForSunset.toString(),
                           style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 16.sp,
