@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 
 import 'package:provider/provider.dart';
+
 import 'package:wheather_app/provider/wheather_provider.dart';
 
 import '../resource/style_manager.dart';
@@ -82,78 +83,9 @@ class _WheatherHomeState extends State<WheatherHome> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // SizedBox(
-              //   height: 140.h,
-              //   child: Padding(
-              //     padding: const EdgeInsets.symmetric(vertical: 10),
-              //     child: SizedBox(
-              //       height: 140.h,
-              //       child: Consumer<WheatherProvider>(
-              //         builder: (context, wheatherProvider, _) {
-              //           if (wheatherProvider.weather.isEmpty) {
-              //             return const Center(
-              //               child: Text(
-              //                 'No wheather found!.',
-              //                 style: TextStyle(
-              //                   color: Colors.black,
-              //                   fontWeight: FontWeight.normal,
-              //                   fontFamily: 'Poppins',
-              //                   fontSize: 1,
-              //                 ),
-              //               ),
-              //             );
-              //           } else {
-              //             return ListView.builder(
-              //               shrinkWrap: true,
-              //               scrollDirection: Axis.vertical,
-              //               itemCount: wheatherProvider.weather.length,
-              //               itemBuilder: (BuildContext context, int index) {
-              //                 var wheatherListDetails =
-              //                     wheatherProvider.weather[index];
-
-              //                 return Column(
-              //                   children: [
-              //                     Text(
-              //                       wheatherListDetails.main
-              //                           .toString()
-              //                           .toUpperCase(),
-              //                       style: TextStyle(
-              //                         color: Colors.black,
-              //                         fontFamily: 'Poppins',
-              //                         letterSpacing: 2,
-              //                         fontWeight: FontWeight.w700,
-              //                         fontSize: 30.sp,
-              //                       ),
-              //                     ),
-              //                     SizedBox(
-              //                       height: 15.h,
-              //                     ),
-              //                     Text(
-              //                       wheatherListDetails.description
-              //                           .toString()
-              //                           .toUpperCase(),
-              //                       style: TextStyle(
-              //                         color: Colors.black,
-              //                         fontFamily: 'Poppins',
-              //                         letterSpacing: 2,
-              //                         fontWeight: FontWeight.w500,
-              //                         fontSize: 30.sp,
-              //                       ),
-              //                     ),
-              //                   ],
-              //                 );
-              //               },
-              //             );
-              //           }
-              //         },
-              //       ),
-              //     ),
-              //   ),
-              // ),
-
               Center(
                 child: Text(
-                  wheatherModelData!.name.toString().toUpperCase(),
+                  wheatherModelData.name.toString().toUpperCase(),
                   style: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
@@ -180,7 +112,6 @@ class _WheatherHomeState extends State<WheatherHome> {
                   ),
                 ),
               ),
-
               SizedBox(
                 height: 30.h,
               ),
@@ -199,7 +130,7 @@ class _WheatherHomeState extends State<WheatherHome> {
               ),
               Center(
                 child: Text(
-                  "${wheatherModelData!.main.tempMax.toString()} º",
+                  "${wheatherModelData.main.tempMax.toString()} º",
                   style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 80.sp,
@@ -360,7 +291,7 @@ class _WheatherHomeState extends State<WheatherHome> {
                           height: 4.h,
                         ),
                         Text(
-                         formattedForSunset.toString(),
+                          formattedForSunset.toString(),
                           style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 16.sp,
@@ -398,7 +329,7 @@ class _WheatherHomeState extends State<WheatherHome> {
                           height: 4.h,
                         ),
                         Text(
-                        formattedForSunset.toString(),
+                          formattedForSunset.toString(),
                           style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 16.sp,
