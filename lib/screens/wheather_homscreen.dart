@@ -148,7 +148,7 @@ class _WheatherHomeState extends State<WheatherHome> {
                   dotsCount: 2,
 
                   //position: currentIndexPage,
-                  decorator: DotsDecorator(
+                  decorator: const DotsDecorator(
                       color: Colors.grey, // Inactive color
                       activeColor: Colors.black,
                       size: Size.square(5),
@@ -336,5 +336,6 @@ class _WheatherHomeState extends State<WheatherHome> {
     }
     return await Geolocator.getCurrentPosition();
   }
+
 }
 
