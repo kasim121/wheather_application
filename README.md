@@ -1,16 +1,14 @@
-# wheather_app
 
-A new Flutter project.
+# Wheather App
 
-## Getting Started
+Wheather App Assignment:
 
-This project is a starting point for a Flutter application.
+Screenshots
 
-A few resources to get you started if this is your first Flutter project:
+![WhatsApp Image 2023-08-05 at 9 32 54 AM](https://github.com/kasim121/wheather_application/assets/53419295/94d14f2f-79c1-4d1c-af95-12a9dbc731c9)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+Image References:
+
+https://icons8.com/icons/set/svg
